@@ -34,7 +34,7 @@ function stripAll(s) {
 function transformResult(date) {
   return (raw_result) => {
     return raw_result.map(function (idx, movie) {
-      const schedules = movie.schedules.map((i, s) => stripAll(s)).toArray()
+      const schedules = movie.schedules.toArray().map((s) => stripAll(s).split('～'))
       const title = stripAll(movie.title)
       return {
         schedules: schedules,
@@ -51,5 +51,4 @@ function fetchAll() {
   const days = _.range(11 - moment().weekday() + 1, 11).map(n => moment().weekday(n))
   return Promise.all(_.map(days, fetch)).then(_.flatten)
 }
-
 module.exports = fetchAll
