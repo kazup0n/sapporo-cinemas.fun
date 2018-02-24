@@ -20,7 +20,7 @@ functions:
       bucketName:  ${file(./config.yml):bucketName}
 
 events:
-  - schedule: cron(0 0 * * *)
+  - schedule: cron(5 15 * * *)
 
 resources:
   Resources:

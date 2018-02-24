@@ -1,16 +1,30 @@
 'use strict';
 
-module.exports.hello = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
+const _ = require('lodash')
+const kino = require('./js/crawlers/kino')
+const uc = require('./js/crawlers/united_cinemas')
+const {putObject} = require('./js/s3')
 
-  callback(null, response);
+function start_crawler(event, context, callback) {
+  Promise.all([kino(), uc()]).then(result => {
+    const grouped = _(result)
+      .flatten()
+      .map(s => {
+        return {
+          date: s.date.format('YYYY-MM-DD'),
+          title: s.title,
+          schedules: s.schedules,
+          theater: s.theater
+        }
+      })
+      .groupBy('date')
+      .value()
+    putObject(grouped).then(()=>{
+      callback(null, null);
+    })
 
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
-};
+
+  })
+}
+
+module.exports.start_crawler = start_crawler
