@@ -9,18 +9,20 @@ provider:
       Action:
         - "s3:PutObject"
       Resource:
-        Fn::GetAtt:
-        - StaticContentsS3
-        - Arn
+        Fn::Join:
+        - ''
+        - - Fn::GetAtt:
+            - StaticContentsS3
+            - Arn
+          - "/*"
 
 functions:
   start_crawler:
     handler: handler.start_crawler
     environment:
       bucketName:  ${file(./config.yml):bucketName}
-
-events:
-  - schedule: cron(5 15 * * *)
+    events:
+      - schedule: cron(5 15 * * ? *)
 
 resources:
   Resources:
