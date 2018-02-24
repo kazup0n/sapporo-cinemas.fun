@@ -90,3 +90,6 @@ jspm_packages
 .serverless
 
 .vscode
+
+dist/
+!dist/index.html
