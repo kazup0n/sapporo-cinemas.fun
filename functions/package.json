@@ -1,0 +1,16 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio-httpcli": "^0.7.2",
+    "lodash": "^4.17.5",
+    "moment": "^2.20.1",
+    "moment-range": "^3.1.1",
+    "moment-timezone": "^0.5.14"
+  },
+  "devDependencies": {
+    "serverless": "^1.26.0"
+  }
+}
