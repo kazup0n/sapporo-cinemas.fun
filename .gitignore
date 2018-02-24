@@ -82,5 +82,9 @@ typings/
 # dotenv environment variables file
 .env
 
-vendor/
+# package directories
+node_modules
+jspm_packages
 
+# Serverless directories
+.serverless

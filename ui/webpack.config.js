@@ -1,6 +1,6 @@
 module.exports = {
   entry: "./index.jsx",
-  context: __dirname + "/app/assets/js",
+  context: __dirname + "/js",
   devServer: {
     contentBase: __dirname +  "/dist",
     compress: true,
