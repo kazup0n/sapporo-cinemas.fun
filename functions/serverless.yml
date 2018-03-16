@@ -7,8 +7,8 @@ provider:
 
 custom:
   bucket:
-      dev: sapporo-cinema-public-dev
-      prd: sapporo-cinema-public-prd
+    dev: sapporo-cinema-public-dev
+    prd: sapporo-cinema-public-prd
   logLevel:
     dev: 'debug'
     prd: 'info'
