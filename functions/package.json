@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test": "mocha --require intelli-espower-loader",
-    "local": "yarn run serverless invoke local --function start_crawler | bunyan"
+    "local": "yarn run serverless invoke local --function start_crawler | bunyan",
+    "deploy": "sls deploy --stage prd"
   },
   "dependencies": {
     "bunyan": "^1.8.12",

@@ -1,8 +1,8 @@
 const client = require('cheerio-httpcli')
 const moment = require('moment-range').extendMoment(require('moment-timezone'))
-
 const _ = require('lodash')
 
+const logger = require('../logger')
 const TZ = require('../tz')
 
 
@@ -15,6 +15,9 @@ const PAGES = {
 
 function fetch(page) {
   const url = BASE_URL + PAGES[page]
+
+  logger.info('fetching',{url: url})
+
   return client.fetch(url).then(result => {
     const days = result.$('#days>h2').text()
     const titles = result.$('.ttl').map((i, s) => result.$(s).text())
@@ -55,8 +58,8 @@ function transformResult(rawResult) {
 }
 
 function fetchAll() {
+  logger.info('start fetching kino')
   return Promise.all(['a', 'b'].map(p => fetch(p).then(transformResult))).then(_.flatten)
 }
-
 
 module.exports = fetchAll

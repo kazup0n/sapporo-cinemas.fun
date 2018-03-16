@@ -17,7 +17,7 @@ function start_crawler(event, context, callback) {
           schedules: s.schedules,
           theater: s.theater
         }
-        logger.debug({date: r.date, theater: r.theater, count: r.schedules.length})
+        logger.debug({date: r.date, theater: r.theater, count: r.schedules.length, title: s.title})
         return r
       })
       .groupBy('date')

@@ -14,7 +14,7 @@ function fetch(date) {
   const url = BASE_URL + '/sapporo/daily.php'
   const params = { date: date.tz('Asia/Tokyo').format('YYYY-MM-DD') }
 
-  logger.info(`fetching schedules: ${url}`, params)
+  logger.info(`fetching`, {url: url, params: params})
 
   return client.fetch(url, params).then(function (result) {
     return result.$('#dailyList > li').map(function (idx) {
@@ -58,6 +58,7 @@ function transformResult(date) {
 
 function fetchAll() {
   //次の水曜日まで
+  logger.info('start fetching united cinema')
   const days = daysUntillNextWednesdayFromToday()
   return Promise.all(_.map(days, fetch)).then(_.flatten)
 }
