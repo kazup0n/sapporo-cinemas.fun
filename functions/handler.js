@@ -3,6 +3,7 @@
 const _ = require('lodash')
 const kino = require('./js/crawlers/kino')
 const uc = require('./js/crawlers/united_cinemas')
+const logger = require('./js/logger')
 const {putObject} = require('./js/s3')
 
 function start_crawler(event, context, callback) {
@@ -10,12 +11,14 @@ function start_crawler(event, context, callback) {
     const grouped = _(result)
       .flatten()
       .map(s => {
-        return {
+        const r = {
           date: s.date.format('YYYY-MM-DD'),
           title: s.title,
           schedules: s.schedules,
           theater: s.theater
         }
+        logger.debug({date: r.date, theater: r.theater, count: r.schedules.length, title: s.title})
+        return r
       })
       .groupBy('date')
       .value()
