@@ -91,5 +91,5 @@ jspm_packages
 
 .vscode
 
-dist/
+ui/dist/
 !dist/index.html

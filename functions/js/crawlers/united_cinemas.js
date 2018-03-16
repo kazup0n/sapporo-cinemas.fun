@@ -1,6 +1,7 @@
 const client = require('cheerio-httpcli')
 const _ = require('lodash')
 const moment = require('moment-timezone')
+const logger = require('../logger')
 
 const BASE_URL = 'https://www.unitedcinemas.jp'
 
@@ -11,6 +12,8 @@ const BASE_URL = 'https://www.unitedcinemas.jp'
 function fetch(date) {
   const url = BASE_URL + '/sapporo/daily.php'
   const params = { date: date.tz('Asia/Tokyo').format('YYYY-MM-DD') }
+
+  logger.info(`fetching schedules: ${url}`, params)
 
   return client.fetch(url, params).then(function (result) {
     return result.$('#dailyList > li').map(function (idx) {
@@ -36,12 +39,15 @@ function transformResult(date) {
     return raw_result.map(function (idx, movie) {
       const schedules = movie.schedules.toArray().map((s) => stripAll(s).split('～'))
       const title = stripAll(movie.title)
-      return {
+
+      const transformed =  {
         schedules: schedules,
         title: title,
         date: date.tz('Asia/Tokyo'),
         theater: 'uc'
       }
+      logger.trace('transformed schedules for date', {date: date, transformed: transformed})
+      return transformed
     }).toArray()
   }
 }
