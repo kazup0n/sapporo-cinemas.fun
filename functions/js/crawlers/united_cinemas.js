@@ -1,7 +1,8 @@
 const client = require('cheerio-httpcli')
 const _ = require('lodash')
-const moment = require('moment-timezone')
 const logger = require('../logger')
+
+const daysUntillNextWednesdayFromToday = require('../date').daysUntillNextWednesdayFromToday
 
 const BASE_URL = 'https://www.unitedcinemas.jp'
 
@@ -46,7 +47,10 @@ function transformResult(date) {
         date: date.tz('Asia/Tokyo'),
         theater: 'uc'
       }
-      logger.trace('transformed schedules for date', {date: date, transformed: transformed})
+      logger.trace('transformed schedules for date', {
+        date: date,
+        transformed: transformed,
+        title: title})
       return transformed
     }).toArray()
   }
@@ -54,7 +58,7 @@ function transformResult(date) {
 
 function fetchAll() {
   //次の水曜日まで
-  const days = _.range(11 - moment().weekday() + 1, 11).map(n => moment().weekday(n))
+  const days = daysUntillNextWednesdayFromToday()
   return Promise.all(_.map(days, fetch)).then(_.flatten)
 }
 module.exports = fetchAll

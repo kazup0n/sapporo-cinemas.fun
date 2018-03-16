@@ -3,17 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "mocha --require intelli-espower-loader",
+    "local": "yarn run serverless invoke local --function start_crawler | bunyan"
+  },
   "dependencies": {
     "bunyan": "^1.8.12",
     "cheerio-httpcli": "^0.7.2",
     "lodash": "^4.17.5",
-    "mocha": "^5.0.4",
     "moment": "^2.20.1",
     "moment-range": "^3.1.1",
-    "moment-timezone": "^0.5.14",
-    "power-assert": "^1.4.4"
+    "moment-timezone": "^0.5.14"
   },
   "devDependencies": {
+    "intelli-espower-loader": "^1.0.1",
+    "mocha": "^5.0.4",
+    "power-assert": "^1.4.4",
     "serverless": "^1.26.0"
   }
 }

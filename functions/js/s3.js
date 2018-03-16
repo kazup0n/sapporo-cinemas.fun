@@ -3,12 +3,13 @@ const logger = require('./logger')
 
 const JSON_FILE_KEY = 'cinema_schedules.json'
 
+const indent = process.env.stage == 'dev' ? 4: 0
 
 function putObject(contents){
   const params = {
     Bucket: process.env.bucketName,
     Key: JSON_FILE_KEY,
-    Body: JSON.stringify(contents),
+    Body: JSON.stringify(contents, null, indent),
     ContentType: 'application/json'
   }
 
@@ -23,7 +24,7 @@ function putObject(contents){
 function putFile(params){
   return new Promise(function(resolve, reject){
     const fs = require("fs");
-    fs.writeFile('../ui/dist/cinema_schedules.json', params.Body, function(err){
+    fs.writeFile(`../ui/dist/${JSON_FILE_KEY}`, params.Body, function(err){
       if(err) reject(err)
       else resolve()
     })
