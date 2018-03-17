@@ -3,11 +3,12 @@
 const _ = require('lodash')
 const kino = require('./js/crawlers/kino')
 const uc = require('./js/crawlers/united_cinemas')
+const cf = require('./js/crawlers/cinema_frontier')
 const logger = require('./js/logger')
 const {putObject} = require('./js/s3')
 
 function start_crawler(event, context, callback) {
-  Promise.all([kino(), uc()]).then(result => {
+  Promise.all([kino(), uc(), cf()]).then(result => {
     const grouped = _(result)
       .flatten()
       .map(s => {
@@ -24,6 +25,8 @@ function start_crawler(event, context, callback) {
       .value()
     putObject(grouped).then(()=>{
       callback(null, null);
+    }).catch(err => {
+      callback(err)
     })
 
 
