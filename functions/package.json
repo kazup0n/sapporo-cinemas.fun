@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --require intelli-espower-loader",
-    "local": "yarn run serverless invoke local --function start_crawler | bunyan",
+    "test": "mocha --recursive --require intelli-espower-loader",
+    "local": "yarn run serverless invoke local --stage dev --function start_crawler | bunyan",
     "deploy": "sls deploy --stage prd"
   },
   "dependencies": {

@@ -1,4 +1,6 @@
 const AWS = require('aws-sdk')
+const _ = require('lodash')
+
 const logger = require('./logger')
 
 const JSON_FILE_KEY = 'cinema_schedules.json'
@@ -13,7 +15,7 @@ function putObject(contents){
     ContentType: 'application/json'
   }
 
-  logger.trace('putting to s3', params)
+  logger.debug('putting to storage', _.pick(params, ['Bucket', 'Key']))
   if(process.env.stage == 'dev'){
     return putFile(params)
   }else{
@@ -24,7 +26,9 @@ function putObject(contents){
 function putFile(params){
   return new Promise(function(resolve, reject){
     const fs = require("fs");
-    fs.writeFile(`../ui/dist/${JSON_FILE_KEY}`, params.Body, function(err){
+    const file = `../ui/dist/${JSON_FILE_KEY}`
+    logger.debug('Writing to local file', {file: file})
+    fs.writeFile(file, params.Body, function(err){
       if(err) reject(err)
       else resolve()
     })
