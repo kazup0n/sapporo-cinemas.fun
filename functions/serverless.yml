@@ -1,4 +1,7 @@
 service: sapporo-cinema-functions
+package:
+  exclude:
+    - node_modules/aws-sdk/**
 
 provider:
   name: aws

@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk')
+const S3 = require('aws-sdk/clients/s3')
 const _ = require('lodash')
 
 const logger = require('./logger')
@@ -37,7 +37,7 @@ function putFile(params){
 
 function putS3Object(params){
   return new Promise(function(resolve, reject){
-    new AWS.S3().putObject(params, function(err, data){
+    new S3().putObject(params, function(err, data){
       if(err){
         reject(err)
       }
