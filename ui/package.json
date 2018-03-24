@@ -2,7 +2,8 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
-    "publish": "webpack && aws s3 cp dist/index.html s3://sapporo-cinema-public-prd/ && aws s3 cp dist/bundle.js s3://sapporo-cinema-public-prd/"
+    "publish": "webpack && aws s3 cp dist/index.html s3://sapporo-cinema-public-prd/ && aws s3 cp dist/bundle.js s3://sapporo-cinema-public-prd/",
+    "publish-stg": "webpack && aws s3 cp dist/index.html s3://sapporo-cinema-public-stg/ && aws s3 cp dist/bundle.js s3://sapporo-cinema-public-stg/"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
