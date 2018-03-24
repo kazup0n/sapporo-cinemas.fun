@@ -16,7 +16,7 @@ const CinemaRow = (props) => {
 }
 
 export default (props) => {
-  const rows = props.schedules.map(s=><CinemaRow key={s.title} cinema={s} />)
+  const rows = props.schedules.map(s=><CinemaRow key={`${s.title}-${s.theater}`} cinema={s} />)
 
   return <table className="table table-striped table-responsive table-sm">
     <thead>
