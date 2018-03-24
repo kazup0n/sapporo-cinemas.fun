@@ -24,12 +24,15 @@ custom:
   bucket:
     dev: sapporo-cinema-public-dev
     prd: sapporo-cinema-public-prd
+    stg: sapporo-cinema-public-stg
   logLevel:
     dev: 'debug'
     prd: 'info'
+    stg: 'debug'
   cname:
     dev: dev.sapporo-cinema.fun
     prd: sapporo-cinema.fun
+    stg: stg.sapporo-cinema.fun
 
 functions:
   start_crawler:
