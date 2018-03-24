@@ -17,7 +17,7 @@ function fetch(date) {
   logger.info(`fetching`, {url: url, params: params})
 
   return client.fetch(url, params).then(function (result) {
-    return result.$('#dailyList > li').map(function (idx) {
+    return result.$('#dailyList > li').map(function () {
       const title = result.$(this).find('.movieTitle').text()
       const schedules = result.$(this).find('ul.tl > li > ol > li').map(function () {
         return result.$(this).text()

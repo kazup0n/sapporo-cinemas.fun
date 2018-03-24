@@ -3,8 +3,6 @@ const client = require('cheerio-httpcli')
 const _ = require('lodash')
 const logger = require('../logger')
 
-
-const daysUntillNextWednesdayFromToday = require('../date').daysUntillNextWednesdayFromToday
 const daysUntillNextFridayFromToday = require('../date').daysUntillNextFridayFromToday
 
 const BASE_URL = 'http://www.cinemafrontier.net'
@@ -23,7 +21,7 @@ function fetch(date) {
   logger.info(`fetching`, {url: url, params: params})
 
   return client.fetch(url, params).then(function (result) {
-    return result.$('.sc-item').map(function (idx) {
+    return result.$('.sc-item').map(function () {
       const title = result.$(this).find('.title').text()
       const schedules = result.$(this).find('.time').map(function () {
         return result.$(this).text()
